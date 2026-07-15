@@ -2,7 +2,7 @@ import { jsx, jsxs } from "react/jsx-runtime";
 import { renderToString } from "react-dom/server";
 import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
-import { AlertTriangle, RotateCcw, ArrowRight, X, Menu, ArrowDown, Check, Filter, Target, ExternalLink, Database, Fingerprint, ShieldCheck, Layers3, FileCheck2, ChevronDown, Sparkles, Network, Cloud, Users, ArrowUpRight, Quote, Info } from "lucide-react";
+import { AlertTriangle, RotateCcw, ArrowRight, X, Menu, ArrowDown, Check, ChartNoAxesCombined, Target, ExternalLink, Database, Fingerprint, ShieldCheck, Layers3, FileCheck2, ChevronDown, Sparkles, Network, Cloud, Quote, Users, ArrowUpRight, Info } from "lucide-react";
 import { Component, useState, useRef, useMemo, useEffect, useId } from "react";
 function cn(...inputs) {
   return twMerge(clsx(inputs));
@@ -55,8 +55,8 @@ const assets = {
 const peregrineIntroduction = {
   eyebrow: "About Peregrine",
   title: "A federal data and AI partner built for mission value",
-  body: "Peregrine combines federal data policy, enterprise architecture, engineering, human-centered analytics, responsible AI, and a history of stellar delivery to help DCAA create greater mission value from agency-owned information while preserving traceability, human judgment, and disciplined execution.",
-  details: ["SBA 8(a) prime", "Financial-regulatory mission fluency", "Strategy-through-production delivery", "Senior, multidisciplinary leadership"]
+  body: "Organized as a unique data and technology innovation hub and social enterprise, Peregrine combines federal data policy, enterprise architecture, engineering, human-centered analytics, responsible AI, and a history of stellar delivery to help DCAA create greater mission value from agency-owned information while preserving traceability, human judgment, and disciplined execution.",
+  details: ["Data and technology innovation hub", "SBA 8(a) prime", "Financial-regulatory mission fluency", "Strategy-through-production delivery", "Senior, multidisciplinary leadership"]
 };
 const navigation = [
   { id: "top", label: "Overview", phase: "foundation" },
@@ -81,7 +81,6 @@ const evidenceContexts = {
     "SEC and PCAOB provide financial-regulatory experience, while NYDFS adds policy and governance work supporting supervisory decisions.",
     "Peregrine is an SBA 8(a) prime and holds GSA Multiple Award Schedule contract 47QTCA23D0028 under SIN 54151S, Information Technology Professional Services. Federal procurement approaches remain subject to the Contracting Officer's independent research, planning, eligibility confirmation, and approvals."
   ],
-  matrix: "Relevant past performance is drawn from SEC prime delivery, PCAOB enterprise data services, DDOT transformation, FDA secure cloud work, and NYDFS regulatory governance. Each example is mapped to the requested DCAA outcome it most directly supports.",
   foundation: "SEC CAT, PCAOB, DDOT, and FDA demonstrate experience with source integration, historical preservation, data quality, metadata, lineage, security, and governed analytical delivery."
 };
 const artifactCategories = [
@@ -211,8 +210,7 @@ const pdsaMethod = {
     { id: "01", title: "Design", body: "Identify users, define the problem, structure value, and explore viable options." },
     { id: "02", title: "Systems", body: "Evaluate the complete ecosystem, experiment, measure, learn, and select the solution path." },
     { id: "03", title: "Agile", body: "Build, review, and release working increments through client-compatible delivery cycles." }
-  ],
-  source: "Controlled SEC technical volume, Figure 3"
+  ]
 };
 const officialLinks = [
   { label: "DCAA agency mission", href: "https://www.dcaa.mil/" },
@@ -451,7 +449,7 @@ const azureCases = [
   }
 ];
 const supportingPortfolio = [
-  { client: "SEC subcontract continuity", cloud: "AWS", body: "Peregrine's SEC data and visualization experience began in a subcontract role in 2018 and progressed to prime leadership across three related call orders." },
+  { client: "SEC growth and prime performance", cloud: "AWS", body: "Peregrine began at the SEC as a subcontractor and grew into an award-winning, high-performing AI and data prime with all-Exceptional CPARS and a footprint across five divisions and offices. The firm is known for innovative, disruptive, and breakthrough programs that it envisioned and pursued for the agency, creating substantial mission value." },
   { client: "FDA FiDLE", cloud: "AWS", body: "Documented subcontract delivery across AI and ML, data engineering, cloud architecture, data security, Zero Trust, enterprise reporting, and production support." },
   { client: "NYDFS", cloud: "Financial regulation", body: "Peregrine developed and implemented a digital-asset policy framework and strengthened data governance supporting supervisory decisions." },
   { client: "Private-sector and internal products", cloud: "Google Cloud", body: "Economic consulting and internal product development demonstrate portable data science, product engineering, and method independence." }
@@ -462,12 +460,12 @@ const cloudPaths = [
   { cloud: "Google Cloud", evidence: "Private-sector and internal products", value: "Portable product engineering, data science, modern development, and method independence." }
 ];
 const team = [
-  { number: "01", initials: "SK", name: "Sarosh R. Khan", companyTitle: "Founder and Chief Executive Officer", role: "Executive Sponsor", education: "M.P.A., Harvard University; B.S. in Economics, Northeastern University", profile: "Sarosh founded Peregrine and leads executive strategy, client alignment, enterprise transformation, and mission-value delivery across regulated federal, economic, and data and AI environments.", contribution: "Executive alignment, senior stakeholder engagement, institutional barrier removal, escalation, client-value assurance, and accountable prime leadership.", coverage: "Capabilities 1, 7, 8, and 9", pastPerformance: "SEC, PCAOB, DDOT, and other mission organizations.", focus: "DCAA's mission protects the integrity of federal spending and public trust. Peregrine can help create greater mission value from enterprise information while preserving audit rigor, independence, and human judgment." },
-  { number: "02", initials: "RS", name: "Rajesh Sripada", companyTitle: "Enterprise Data Architect", role: "Program Manager and Enterprise Architecture Lead", education: "M.S. in Applied Information Technology, Towson University", profile: "Rajesh is an enterprise data architect with more than three decades across architecture, cloud strategy, engineering, financial and accounting data, AI-enabled analytics, and federal delivery.", contribution: "Day-to-day program integration, target architecture, transition states, technical roadmap, dependencies, schedule, risk, and stakeholder coordination.", coverage: "Capabilities 1–3 and 5–9", pastPerformance: "FDA data work, PCAOB strategy, and modern enterprise-data environments.", focus: "DCAA's evolving organizational model requires architecture that remains practical across locations, traceable across systems, and tied to mission use. The lakehouse can connect current and legacy information into one durable delivery path." },
-  { number: "03", initials: "EG", name: "Erik Garbacik, PhD", companyTitle: "Principal Data Scientist", role: "Technical Quality and Acceptance Lead", education: "Ph.D. in Applied Physics, University of Twente", profile: "Erik brings advanced quantitative modeling, applied physics, data science, cloud modernization, technical review, and SEC and DDOT mission experience.", contribution: "Independent technical review, analytical integrity, quality assurance, testing, reproducibility, deficiency resolution, and architecture and model review.", coverage: "Capabilities 1, 2, 4, 5, 7, and 9", pastPerformance: "Scientific reasoning, analytical-product development, acceptance strategy, Agile delivery, and SEC experience.", focus: "DCAA's analytical conclusions must be reproducible, explainable, and supported by traceable records. Strong quality and acceptance discipline will help every capability withstand serious audit scrutiny." },
-  { number: "04", initials: "SS", name: "Steve Schluchter, PhD", companyTitle: "Data Scientist", role: "Lead Data Scientist and Responsible AI Lead", education: "Ph.D. in Mathematics, The George Washington University", profile: "Steve is a mathematician and data scientist with experience in computational mathematics, graph theory, machine learning, secure data engineering, pipeline optimization, and regulated federal analytics.", contribution: "Analytical methodology, model baselines, validation, explainability, responsible AI, secure analytical workflows, and limitation reporting.", coverage: "Capabilities 2–7 and 9", pastPerformance: "Statistical modeling, feature engineering, model validation, analytical design, federal software engineering, and cloud data science.", focus: "DCAA is an ideal mission for rigorous, human-centered analytics and carefully governed AI that augments expert judgment without hiding assumptions, uncertainty, or limitations." },
-  { number: "05", initials: "NK", name: "Nick Kiritz, CFA, FRM", companyTitle: "Chief Implementation Officer", role: "Strategy, Governance, and Implementation Lead", education: "MBA in Finance, University of California, Berkeley; B.A. in Economics", profile: "Nick brings approximately 30 years across financial risk, internal control, regulatory compliance, governance, implementation strategy, and executive advisory work.", contribution: "Strategy-to-implementation alignment, governance, operating model, decision rights, prioritization, benefits realization, and executive implementation discipline.", coverage: "Capabilities 1, 3, 4, 6, 8, and 9", pastPerformance: "Experience associated with SEC, OCC, Fannie Mae, McKinsey, and federal mission organizations.", focus: "DCAA's technology transformation can align investment, governance, controls, and implementation around measurable mission value while preserving durable agency ownership." },
-  { number: "06", initials: "DR", name: "Dean Ritz", companyTitle: "Chief Data Policy Advisor", role: "Federal Data Policy Lead", education: "M.A. in Philosophy, University of Montana; B.A. in Liberal Arts, Hampshire College", profile: "Dean brings nearly four decades across federal data policy, semantic standards, structured reporting, knowledge engineering, machine-readable information, and enterprise technology.", contribution: "Federal policy alignment, data access and use rules, semantic interoperability, machine-readable financial information, standards, metadata policy, and governance logic.", coverage: "Capabilities 1, 3, 4, 6, 8, and 9", pastPerformance: "SEC Financial Data Transparency Act implementation, Data Foundation leadership, structured-data strategy, and machine-readable reporting.", focus: "DCAA sits at the center of federal financial accountability, where policy, standards, interoperability, and traceable information must translate into practical rules for access, use, and sharing." }
+  { number: "01", initials: "SK", name: "Sarosh R. Khan", companyTitle: "Founder and Chief Executive Officer", role: "Executive Sponsor", education: "M.P.A., Harvard University; B.S. in Economics, Northeastern University", profile: "Sarosh founded Peregrine and leads executive strategy, client alignment, enterprise transformation, and mission-value delivery across regulated federal, economic, and data and AI environments.", contribution: "Executive alignment, senior stakeholder engagement, institutional barrier removal, escalation, client-value assurance, and accountable prime leadership.", coverage: "Capabilities 1, 7, 8, and 9", pastPerformance: "SEC, PCAOB, DDOT, and other mission organizations.", quote: "DCAA's mission protects the integrity of federal spending and public trust. Peregrine can help create greater mission value from enterprise information while preserving audit rigor, independence, and human judgment." },
+  { number: "02", initials: "RS", name: "Rajesh Sripada", companyTitle: "Enterprise Data Architect", role: "Program Manager and Enterprise Architecture Lead", education: "M.S. in Applied Information Technology, Towson University", profile: "Rajesh is an enterprise data architect with more than three decades across architecture, cloud strategy, engineering, financial and accounting data, AI-enabled analytics, and federal delivery.", contribution: "Day-to-day program integration, target architecture, transition states, technical roadmap, dependencies, schedule, risk, and stakeholder coordination.", coverage: "Capabilities 1–3 and 5–9", pastPerformance: "FDA data work, PCAOB strategy, and modern enterprise-data environments.", quote: "DCAA's evolving organizational model requires architecture that remains practical across locations, traceable across systems, and tied to mission use. The lakehouse can connect current and legacy information into one durable delivery path." },
+  { number: "03", initials: "EG", name: "Erik Garbacik, PhD", companyTitle: "Principal Data Scientist", role: "Technical Quality and Acceptance Lead", education: "Ph.D. in Applied Physics, University of Twente", profile: "Erik brings advanced quantitative modeling, applied physics, data science, cloud modernization, technical review, and SEC and DDOT mission experience.", contribution: "Independent technical review, analytical integrity, quality assurance, testing, reproducibility, deficiency resolution, and architecture and model review.", coverage: "Capabilities 1, 2, 4, 5, 7, and 9", pastPerformance: "Scientific reasoning, analytical-product development, acceptance strategy, Agile delivery, and SEC experience.", quote: "DCAA's analytical conclusions must be reproducible, explainable, and supported by traceable records. Strong quality and acceptance discipline will help every capability withstand serious audit scrutiny." },
+  { number: "04", initials: "SS", name: "Steve Schluchter, PhD", companyTitle: "Data Scientist", role: "Lead Data Scientist and Responsible AI Lead", education: "Ph.D. in Mathematics, The George Washington University", profile: "Steve is a mathematician and data scientist with experience in computational mathematics, graph theory, machine learning, secure data engineering, pipeline optimization, and regulated federal analytics.", contribution: "Analytical methodology, model baselines, validation, explainability, responsible AI, secure analytical workflows, and limitation reporting.", coverage: "Capabilities 2–7 and 9", pastPerformance: "Statistical modeling, feature engineering, model validation, analytical design, federal software engineering, and cloud data science.", quote: "DCAA is an ideal mission for rigorous, human-centered analytics and carefully governed AI that augments expert judgment without hiding assumptions, uncertainty, or limitations." },
+  { number: "05", initials: "NK", name: "Nick Kiritz, CFA, FRM", companyTitle: "Chief Implementation Officer", role: "Strategy, Governance, and Implementation Lead", education: "MBA in Finance, University of California, Berkeley; B.A. in Economics", profile: "Nick brings approximately 30 years across financial risk, internal control, regulatory compliance, governance, implementation strategy, and executive advisory work.", contribution: "Strategy-to-implementation alignment, governance, operating model, decision rights, prioritization, benefits realization, and executive implementation discipline.", coverage: "Capabilities 1, 3, 4, 6, 8, and 9", pastPerformance: "Experience associated with SEC, OCC, Fannie Mae, McKinsey, and federal mission organizations.", quote: "DCAA's technology transformation can align investment, governance, controls, and implementation around measurable mission value while preserving durable agency ownership." },
+  { number: "06", initials: "DR", name: "Dean Ritz", companyTitle: "Chief Data Policy Advisor", role: "Federal Data Policy Lead", education: "M.A. in Philosophy, University of Montana; B.A. in Liberal Arts, Hampshire College", profile: "Dean brings nearly four decades across federal data policy, semantic standards, structured reporting, knowledge engineering, machine-readable information, and enterprise technology.", contribution: "Federal policy alignment, data access and use rules, semantic interoperability, machine-readable financial information, standards, metadata policy, and governance logic.", coverage: "Capabilities 1, 3, 4, 6, 8, and 9", pastPerformance: "SEC Financial Data Transparency Act implementation, Data Foundation leadership, structured-data strategy, and machine-readable reporting.", quote: "DCAA sits at the center of federal financial accountability, where policy, standards, interoperability, and traceable information must translate into practical rules for access, use, and sharing." }
 ];
 const inadevTeam = [
   { name: "Manish Agarwal", role: "Chief Executive Officer", value: "Corporate leadership and access to specialized federal engineering resources." },
@@ -555,7 +553,6 @@ function Home() {
   const [activeCapability, setActiveCapability] = useState(capabilities[0].id);
   const [activeSec, setActiveSec] = useState(secWorkstreams[0].id);
   const [activePerson, setActivePerson] = useState(team[0].name);
-  const [artifactFilters, setArtifactFilters] = useState([]);
   const [announcement, setAnnouncement] = useState("");
   const menuButtonRef = useRef(null);
   const menuRef = useRef(null);
@@ -569,10 +566,6 @@ function Home() {
   const selectedSec = secWorkstreams.find((workstream) => workstream.id === activeSec) ?? secWorkstreams[0];
   const selectedPerson = team.find((person) => person.name === activePerson) ?? team[0];
   const selectedMap = mentalMap.find((item) => item.id === activeMap) ?? mentalMap[0];
-  const filteredArtifacts = useMemo(
-    () => artifactFilters.length === 0 ? pastPerformanceArtifacts : pastPerformanceArtifacts.filter((artifact) => artifactFilters.every((category) => artifact.categories.includes(category))),
-    [artifactFilters]
-  );
   useEffect(() => {
     const sections = navigation.map((item) => document.getElementById(item.id)).filter((item) => Boolean(item));
     const observer = new IntersectionObserver(
@@ -622,16 +615,6 @@ function Home() {
   const selectState = (message, setter, value) => {
     setter(value);
     setAnnouncement(message);
-  };
-  const resetArtifactFilters = () => {
-    setArtifactFilters([]);
-    setAnnouncement(`${pastPerformanceArtifacts.length} past-performance records shown.`);
-  };
-  const toggleArtifactFilter = (category) => {
-    const next = artifactFilters.includes(category) ? artifactFilters.filter((item) => item !== category) : [...artifactFilters, category];
-    const nextCount = next.length === 0 ? pastPerformanceArtifacts.length : pastPerformanceArtifacts.filter((artifact) => next.every((item) => artifact.categories.includes(item))).length;
-    setArtifactFilters(next);
-    setAnnouncement(`${nextCount} past-performance record${nextCount === 1 ? "" : "s"} match the selected categories.`);
   };
   return /* @__PURE__ */ jsxs("div", { className: "site-shell", children: [
     /* @__PURE__ */ jsx("a", { className: "skip-link", href: "#main-content", children: "Skip to main content" }),
@@ -763,16 +746,7 @@ function Home() {
               /* @__PURE__ */ jsx("strong", { children: row.outcome })
             ] }),
             /* @__PURE__ */ jsx("td", { children: row.response }),
-            /* @__PURE__ */ jsxs("td", { children: [
-              /* @__PURE__ */ jsxs("div", { className: "performance-with-context", children: [
-                /* @__PURE__ */ jsx("p", { children: row.pastPerformance }),
-                /* @__PURE__ */ jsx(ContextTooltip, { label: `${row.outcome} past performance`, context: evidenceContexts.matrix })
-              ] }),
-              /* @__PURE__ */ jsxs("a", { href: row.href, children: [
-                "View past performance ",
-                /* @__PURE__ */ jsx(ArrowRight, { "aria-hidden": "true" })
-              ] })
-            ] })
+            /* @__PURE__ */ jsx("td", { children: /* @__PURE__ */ jsx("p", { children: row.pastPerformance }) })
           ] }, row.outcome)) })
         ] }) }),
         /* @__PURE__ */ jsx("div", { className: "matrix-mobile", "aria-label": "DCAA alignment matrix", children: matrixRows.map((row, index) => /* @__PURE__ */ jsxs("article", { children: [
@@ -786,15 +760,8 @@ function Home() {
             /* @__PURE__ */ jsx("span", { children: row.response })
           ] }),
           /* @__PURE__ */ jsxs("div", { children: [
-            /* @__PURE__ */ jsxs("p", { children: [
-              "Relevant past performance ",
-              /* @__PURE__ */ jsx(ContextTooltip, { label: `${row.outcome} past performance`, context: evidenceContexts.matrix })
-            ] }),
+            /* @__PURE__ */ jsx("p", { children: "Relevant past performance" }),
             /* @__PURE__ */ jsx("span", { children: row.pastPerformance })
-          ] }),
-          /* @__PURE__ */ jsxs("a", { href: row.href, children: [
-            "View past performance ",
-            /* @__PURE__ */ jsx(ArrowRight, { "aria-hidden": "true" })
           ] })
         ] }, row.outcome)) }),
         /* @__PURE__ */ jsxs("section", { className: "pdsa-method", "aria-labelledby": "pdsa-title", children: [
@@ -808,75 +775,37 @@ function Home() {
               /* @__PURE__ */ jsx("p", { children: stage.body })
             ] }, stage.id)) })
           ] }),
-          /* @__PURE__ */ jsxs("figure", { children: [
-            /* @__PURE__ */ jsx("img", { src: assets.pdsa, alt: "Peregrine Design, Systems, and Agile method moving from problem identification through experimentation to iterative implementation" }),
-            /* @__PURE__ */ jsx("figcaption", { children: pdsaMethod.source })
-          ] })
+          /* @__PURE__ */ jsx("figure", { children: /* @__PURE__ */ jsx("img", { src: assets.pdsa, alt: "Peregrine Design, Systems, and Agile method moving from problem identification through experimentation to iterative implementation" }) })
         ] }),
         /* @__PURE__ */ jsxs("section", { className: "artifact-browser", "aria-labelledby": "artifact-browser-title", children: [
-          /* @__PURE__ */ jsxs("div", { className: "artifact-browser-heading", children: [
-            /* @__PURE__ */ jsxs("div", { children: [
-              /* @__PURE__ */ jsxs("span", { children: [
-                /* @__PURE__ */ jsx(Filter, { "aria-hidden": "true" }),
-                " Past performance filter"
-              ] }),
-              /* @__PURE__ */ jsx("h3", { id: "artifact-browser-title", children: "Explore mission-driven work at clients with needs similar to DCAA" })
+          /* @__PURE__ */ jsx("div", { className: "artifact-browser-heading", children: /* @__PURE__ */ jsxs("div", { children: [
+            /* @__PURE__ */ jsxs("span", { children: [
+              /* @__PURE__ */ jsx(ChartNoAxesCombined, { "aria-hidden": "true" }),
+              " Past performance"
             ] }),
-            /* @__PURE__ */ jsx("p", { children: "Use the categories below to review relevant client engagements, delivery records, evaluations, governance work, leadership observations, and acquisition qualifications. Select more than one category to narrow the results." })
-          ] }),
-          /* @__PURE__ */ jsxs("div", { className: "artifact-filter-toolbar", role: "group", "aria-label": "Filter past performance by category", children: [
-            /* @__PURE__ */ jsxs("button", { type: "button", "aria-pressed": artifactFilters.length === 0, className: artifactFilters.length === 0 ? "active" : "", onClick: resetArtifactFilters, children: [
-              /* @__PURE__ */ jsx("span", { children: "All past performance" }),
-              /* @__PURE__ */ jsx("strong", { children: pastPerformanceArtifacts.length })
-            ] }),
-            artifactCategories.map((category) => {
-              const count = pastPerformanceArtifacts.filter((artifact) => artifact.categories.includes(category.id)).length;
-              const selected = artifactFilters.includes(category.id);
-              return /* @__PURE__ */ jsxs("button", { type: "button", "aria-pressed": selected, className: selected ? "active" : "", onClick: () => toggleArtifactFilter(category.id), children: [
-                /* @__PURE__ */ jsx("span", { children: category.label }),
-                /* @__PURE__ */ jsx("strong", { children: count })
-              ] }, category.id);
-            })
-          ] }),
-          /* @__PURE__ */ jsxs("div", { className: "artifact-result-status", "aria-live": "polite", children: [
-            /* @__PURE__ */ jsx("span", { children: String(filteredArtifacts.length).padStart(2, "0") }),
-            /* @__PURE__ */ jsx("p", { children: artifactFilters.length === 0 ? "Past-performance records in the complete index" : `Past-performance records matching ${artifactFilters.length} selected categor${artifactFilters.length === 1 ? "y" : "ies"}` }),
-            artifactFilters.length > 0 && /* @__PURE__ */ jsx("button", { type: "button", onClick: resetArtifactFilters, children: "Reset filters" })
-          ] }),
-          filteredArtifacts.length > 0 ? /* @__PURE__ */ jsx("div", { className: "artifact-grid", children: filteredArtifacts.map((artifact) => /* @__PURE__ */ jsxs("article", { className: "artifact-folio", children: [
-            /* @__PURE__ */ jsxs("header", { children: [
-              /* @__PURE__ */ jsx("span", { children: artifact.index }),
-              /* @__PURE__ */ jsx("p", { children: artifact.source })
-            ] }),
+            /* @__PURE__ */ jsx("h3", { id: "artifact-browser-title", children: "Explore mission-driven work at clients with needs similar to DCAA" })
+          ] }) }),
+          /* @__PURE__ */ jsx("div", { className: "artifact-grid", children: pastPerformanceArtifacts.map((artifact) => /* @__PURE__ */ jsxs("article", { className: "artifact-folio", children: [
+            /* @__PURE__ */ jsx("header", { children: /* @__PURE__ */ jsx("p", { children: artifact.source }) }),
             /* @__PURE__ */ jsx("h4", { children: artifact.title }),
             /* @__PURE__ */ jsx("p", { children: artifact.summary }),
-            /* @__PURE__ */ jsx("div", { children: artifact.categories.map((category) => /* @__PURE__ */ jsx("span", { children: artifactCategories.find((item) => item.id === category)?.label }, category)) }),
-            /* @__PURE__ */ jsxs("a", { href: artifact.href, onClick: (event) => {
-              event.preventDefault();
-              navigate(artifact.href.slice(1));
-              setAnnouncement(`${artifact.title} past performance opened.`);
-            }, children: [
-              "Go to past performance ",
-              /* @__PURE__ */ jsx(ArrowRight, { "aria-hidden": "true" })
-            ] })
-          ] }, artifact.id)) }) : /* @__PURE__ */ jsxs("div", { className: "artifact-empty", role: "status", children: [
-            /* @__PURE__ */ jsx(Filter, { "aria-hidden": "true" }),
-            /* @__PURE__ */ jsx("h4", { children: "No past-performance record matches every selected category" }),
-            /* @__PURE__ */ jsx("p", { children: "Remove one category or reset the complete index." }),
-            /* @__PURE__ */ jsx("button", { type: "button", onClick: resetArtifactFilters, children: "Show all past performance" })
-          ] })
+            /* @__PURE__ */ jsx("div", { children: artifact.categories.map((category) => /* @__PURE__ */ jsx("span", { children: artifactCategories.find((item) => item.id === category)?.label }, category)) })
+          ] }, artifact.id)) })
         ] })
       ] }) }),
       /* @__PURE__ */ jsx("section", { id: "mental-map", className: "section mental-map-section", "aria-labelledby": "mental-map-title", children: /* @__PURE__ */ jsxs("div", { className: "page-frame", children: [
         /* @__PURE__ */ jsx(SectionHeader, { index: "02", eyebrow: "DCAA background and approach", title: "Use the data. Extract the intelligence. Enable delivery.", intro: "Three connected actions organize DCAA's data, analytical, and delivery requirements." }),
         /* @__PURE__ */ jsxs("div", { className: "mental-map-layout", children: [
-          /* @__PURE__ */ jsx("div", { className: "mental-map-controls", role: "group", "aria-label": "Three-part mental map", children: mentalMap.map((item) => /* @__PURE__ */ jsxs("button", { type: "button", className: activeMap === item.id ? "active" : "", "aria-pressed": activeMap === item.id, onClick: () => selectState(`${item.title} selected`, setActiveMap, item.id), children: [
-            /* @__PURE__ */ jsx("span", { children: item.number }),
-            /* @__PURE__ */ jsx("small", { children: item.label }),
-            /* @__PURE__ */ jsx("strong", { children: item.title }),
-            /* @__PURE__ */ jsx("p", { children: item.body }),
-            /* @__PURE__ */ jsx("p", { className: "mental-map-detail", children: item.detail })
-          ] }, item.id)) }),
+          /* @__PURE__ */ jsxs("div", { className: "mental-map-main", children: [
+            /* @__PURE__ */ jsx("div", { className: "mental-map-controls", role: "group", "aria-label": "Three-part mental map", children: mentalMap.map((item) => /* @__PURE__ */ jsxs("button", { type: "button", className: activeMap === item.id ? "active" : "", "aria-pressed": activeMap === item.id, onClick: () => selectState(`${item.title} selected`, setActiveMap, item.id), children: [
+              /* @__PURE__ */ jsx("span", { children: item.number }),
+              /* @__PURE__ */ jsx("small", { children: item.label }),
+              /* @__PURE__ */ jsx("strong", { children: item.title }),
+              /* @__PURE__ */ jsx("p", { children: item.body }),
+              /* @__PURE__ */ jsx("p", { className: "mental-map-detail", children: item.detail })
+            ] }, item.id)) }),
+            /* @__PURE__ */ jsx("div", { className: "mental-map-quote", children: /* @__PURE__ */ jsx(EvidenceQuote, { ...lidoQuotation }) })
+          ] }),
           /* @__PURE__ */ jsxs("aside", { className: "alignment-rail", "aria-live": "polite", children: [
             /* @__PURE__ */ jsx("p", { className: "eyebrow", children: "Connection to DCAA requirements" }),
             /* @__PURE__ */ jsxs("div", { className: "alignment-statement", children: [
@@ -906,8 +835,7 @@ function Home() {
             ] }, link.href)) }),
             /* @__PURE__ */ jsx("p", { className: "hub-context", children: "DCAA's transition to 23 hub locations increases the value of consistent enterprise data, reusable analytical services, and role-relevant access across distributed operations." })
           ] })
-        ] }),
-        /* @__PURE__ */ jsx("div", { className: "mental-map-quote", children: /* @__PURE__ */ jsx(EvidenceQuote, { ...lidoQuotation }) })
+        ] })
       ] }) }),
       /* @__PURE__ */ jsx("section", { id: "foundation", className: "section foundation-section", "aria-labelledby": "foundation-title", children: /* @__PURE__ */ jsxs("div", { className: "page-frame", children: [
         /* @__PURE__ */ jsx(SectionHeader, { index: "03", eyebrow: "Use the data", title: "Build a foundation that preserves history, meaning, and evidence.", intro: "Peregrine connects source context, historical structures, governed semantic layers, machine-readable metadata, lineage, analytical models, and operating controls into an AI-ready Azure Databricks decision platform.", dark: true }),
@@ -1308,9 +1236,17 @@ function Home() {
               ] })
             ] }),
             /* @__PURE__ */ jsx("p", { className: "person-profile", children: selectedPerson.profile }),
-            /* @__PURE__ */ jsxs("blockquote", { className: "person-focus", children: [
-              /* @__PURE__ */ jsx("span", { children: "DCAA focus" }),
-              /* @__PURE__ */ jsx("p", { children: selectedPerson.focus })
+            /* @__PURE__ */ jsxs("blockquote", { className: "person-quote", children: [
+              /* @__PURE__ */ jsx(Quote, { "aria-hidden": "true" }),
+              /* @__PURE__ */ jsxs("span", { children: [
+                "Quotation from ",
+                selectedPerson.name
+              ] }),
+              /* @__PURE__ */ jsxs("p", { children: [
+                "“",
+                selectedPerson.quote,
+                "”"
+              ] })
             ] }),
             /* @__PURE__ */ jsxs("dl", { children: [
               /* @__PURE__ */ jsxs("div", { children: [

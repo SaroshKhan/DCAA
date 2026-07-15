@@ -23,12 +23,12 @@ The complete machine-readable result is stored in `qa-results.json`.
 
 | Category or metric | Result | Project target | Status |
 |---|---:|---:|---|
-| Performance | 81 | 90 where the hosting environment permits | Documented local exception |
+| Performance | 83 | 90 where the hosting environment permits | Documented local exception |
 | Accessibility | 100 | 95 | Pass |
 | Best Practices | 100 | 95 | Pass |
 | SEO | 100 | 90 | Pass |
-| First Contentful Paint | 3.4 seconds | Representative mobile measure | Recorded |
-| Largest Contentful Paint | 3.9 seconds | Below 2.5 seconds where hosting permits | Documented local exception |
+| First Contentful Paint | 3.2 seconds | Representative mobile measure | Recorded |
+| Largest Contentful Paint | 3.7 seconds | Below 2.5 seconds where hosting permits | Documented local exception |
 | Cumulative Layout Shift | 0 | Below 0.1 | Pass |
 | Total Blocking Time | 20 milliseconds | Low main-thread blocking | Pass |
 
@@ -54,9 +54,11 @@ Responsive visual inspection on the expanded revision covered 1440 by 810 deskto
 
 Direct in-place inspection of Section 2 confirmed that all three action cards contain a conclusion, operating explanation, and implementation detail; the cards use their available height without large empty lower regions; and the adjacent DCAA requirements panel remains aligned with the selected action. The Lido quotation follows the three-part method as a separate evidence-led statement rather than being compressed into a card.
 
-The independent `/dcaadatalake` production package passed the same eight-viewport interaction suite. Direct HTTP checks returned 200 for the page, hashed JavaScript, hero image, P-DSA diagram, and logo at the intended subpath. Lighthouse measured 99 Performance, 100 Accessibility, 100 Best Practices, and 100 SEO, with 1.4-second First Contentful Paint, 2.0-second Largest Contentful Paint, zero layout shift, and 20 milliseconds of Total Blocking Time.
+The independent `/dcaadatalake` production package passed the same eight-viewport interaction suite. Direct HTTP checks returned 200 for the page, hashed JavaScript, hero image, P-DSA diagram, and logo at the intended subpath. Lighthouse measured 99 Performance, 100 Accessibility, 100 Best Practices, and 100 SEO, with 1.4-second First Contentful Paint, 2.0-second Largest Contentful Paint, zero layout shift, and 40 milliseconds of Total Blocking Time.
 
 The validated handoff was pushed to `https://github.com/SaroshKhan/DCAA` on branch `main`. The initial published package commit is `bd6de9846b874b87072b3683ba44ed54095c2c19`.
+
+The final simplification regression verifies that the alignment matrix contains no links or information triggers; the past-performance section contains exactly ten static records with no filters, result count, indices, or destination links; the cleaned P-DSA image loads with no source caption; the Lido quotation sits beneath the three approach cards; the Azure comparison uses the compact ratio; the SEC growth narrative is present; all six team profiles include education and an attributed quotation; and education uses the same visual treatment as the other team information blocks. Desktop, tablet, and phone screenshots confirm the revised spacing and stacking.
 
 All four DCAA reference URLs and all three SEC award-announcement URLs were opened successfully through browser or page extraction during source validation. Automated DOM checks confirm that each public link has a complete HTTPS destination and every internal past-performance link lands on and focuses its exact section. Direct command-line requests received WAF responses from both public domains, so command-line status codes were not used as the usability determination.
 

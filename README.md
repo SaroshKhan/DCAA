@@ -29,7 +29,9 @@ Run `pnpm qa` while the development server is active. The deterministic browser 
 
 The same suite validates contextual past performance tooltips on hover, keyboard focus, and touch. Tooltip triggers expose descriptive accessible names and expanded state, open panels are connected through `aria-describedby`, and Escape closes the active panel.
 
-The Evidence Cartography index also provides optional artifact-category filters for evaluations, case evidence, delivery artifacts, governance and security, leadership testimony, and acquisition qualifications. Multiple selected categories use intersection logic, the live result count announces changes, and reset and empty-state controls preserve a complete path back to all verified artifacts.
+The Evidence Cartography past-performance section presents ten concise records without filters, record indices, destination links, or explanatory popups. Type labels remain visible so readers can distinguish evaluations, client engagements, delivery artifacts, governance and security, leadership testimony, and procurement qualifications without navigating away from the list.
+
+The DCAA alignment matrix is intentionally static. The relevant past-performance column contains the supporting experience directly, without destination links or contextual popups.
 
 The expanded experience includes a concise Peregrine introduction, the source-controlled Design + Systems + Agile method and diagram, the verified Lido Ramadan statement, the user-approved Mitchell D. Winans statement, the alternate Austin Gerig recommendation, and an **Our Understanding of DCAA** appendix covering agency scale, strategy, structure, operating context, data, technology, workforce, and official public sources.
 

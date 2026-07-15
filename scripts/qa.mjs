@@ -89,14 +89,15 @@ for (const width of widths) {
   await heroProductButtons.nth(1).click();
   const updatedHeroContext = await page.locator("#hero-product-context").innerText();
   interactionChecks.push({ name: "hero decision control reveals explanatory context", passed: initialHeroContext !== updatedHeroContext && (await heroProductButtons.nth(1).getAttribute("aria-pressed")) === "true" });
-  interactionChecks.push({ name: "all past-performance destinations exist", passed: await page.locator(".artifact-folio a").evaluateAll((links) => links.every((link) => document.getElementById((link.getAttribute("href") || "").replace(/^#/, "")))) });
+  interactionChecks.push({ name: "alignment matrix is simplified", passed: (await page.locator("#alignment .matrix-desktop tbody .context-trigger, #alignment .matrix-desktop tbody a, #alignment .matrix-mobile .context-trigger, #alignment .matrix-mobile a").count()) === 0 });
+  interactionChecks.push({ name: "past performance is a static ten-record list", passed: (await page.locator(".artifact-folio").count()) === 10 && (await page.locator(".artifact-filter-toolbar, .artifact-result-status, .artifact-empty, .artifact-folio > a, .artifact-folio header > span").count()) === 0 });
   interactionChecks.push({ name: "GSA acquisition qualification is present", passed: (await page.locator("body").innerText()).includes("47QTCA23D0028") && (await page.locator("body").innerText()).includes("54151S") });
   interactionChecks.push({ name: "final management-review language applied", passed: await page.evaluate(() => {
     const text = document.body.innerText;
     const lower = text.toLowerCase();
     const prohibitedTerm = new RegExp(`(^|\\W)${"pro" + "of"}(\\W|$)`, "i");
     const controlledRequirementsTerm = new RegExp(`(^|\\W)${"PW" + "S"}(\\W|$)`);
-    return !prohibitedTerm.test(text) && !controlledRequirementsTerm.test(text) && lower.includes("driving mission value for dcaa") && text.includes("Mission-driven DCAA intended outcomes, Peregrine capabilities, and past performance") && lower.includes("dcaa background and approach") && text.includes("Use the data. Extract the intelligence. Enable delivery.") && text.includes("Design for AI readiness and reuse");
+    return !prohibitedTerm.test(text) && !controlledRequirementsTerm.test(text) && lower.includes("driving mission value for dcaa") && lower.includes("unique data and technology innovation hub") && text.includes("Mission-driven DCAA intended outcomes, Peregrine capabilities, and past performance") && lower.includes("dcaa background and approach") && text.includes("Use the data. Extract the intelligence. Enable delivery.") && text.includes("Design for AI readiness and reuse");
   }) });
   interactionChecks.push({ name: "all nine capability assessments substantially exceed", passed: await page.locator(".capability-group button small").evaluateAll((items) => items.length === 9 && items.every((item) => item.textContent?.trim() === "Substantially exceeds")) });
   interactionChecks.push({ name: "approved PCAOB quotations and attributions are present", passed: await page.evaluate(() => document.body.innerText.includes("Peregrine brings a unique implementation-oriented perspective on strategy development") && document.body.innerText.includes("Pooja Sangwan") && document.body.innerText.includes("Chief of Staff, Office of Technology, PCAOB") && document.body.innerText.includes("Peregrine has been refreshing. A delivery-first consulting firm") && document.body.innerText.includes("Ahmed Aboulnaga")) });
@@ -113,12 +114,17 @@ for (const width of widths) {
   let teamProfilesComplete = (await page.locator(".team-controls button").count()) === 6;
   for (let index = 0; index < 6 && teamProfilesComplete; index += 1) {
     await page.locator(".team-controls button").nth(index).click();
-    teamProfilesComplete = (await page.locator(".education-box dd").innerText()).trim().length > 10 && (await page.locator(".person-focus p").innerText()).trim().length > 40;
+    teamProfilesComplete = (await page.locator(".education-box dd").innerText()).trim().length > 10 && (await page.locator(".person-quote p").innerText()).trim().length > 40 && (await page.locator(".person-quote > span").innerText()).toLowerCase().startsWith("quotation from ");
   }
-  interactionChecks.push({ name: "all six Peregrine profiles include education and DCAA focus", passed: teamProfilesComplete && (await page.locator(".team-controls button").first().click().then(async () => (await page.locator(".person-monogram").innerText()) === "SK")) });
+  interactionChecks.push({ name: "all six Peregrine profiles include education and attributed quotations", passed: teamProfilesComplete && (await page.locator(".team-controls button").first().click().then(async () => (await page.locator(".person-monogram").innerText()) === "SK")) });
+  interactionChecks.push({ name: "education treatment matches other team information", passed: await page.locator(".person-detail dl").evaluate((list) => { const blocks = Array.from(list.children); if (blocks.length < 4) return false; const first = getComputedStyle(blocks[0]); const education = getComputedStyle(blocks[3]); return first.borderTopColor === education.borderTopColor && first.backgroundColor === education.backgroundColor; }) });
   interactionChecks.push({ name: "Peregrine introduction is present", passed: await page.evaluate(() => document.body.innerText.includes("A federal data and AI partner built for mission value") && document.body.innerText.includes("Senior, multidisciplinary leadership")) });
-  interactionChecks.push({ name: "P-DSA method and source graphic are present", passed: await page.evaluate(() => document.body.innerText.includes("Design + Systems + Agile") && document.body.innerText.includes("Controlled SEC technical volume, Figure 3")) && await page.locator(".pdsa-method img").evaluate((image) => image.complete && image.naturalWidth > 0) });
+  interactionChecks.push({ name: "P-DSA method uses the cleaned source graphic", passed: (await page.locator(".pdsa-method figcaption").count()) === 0 && await page.locator(".pdsa-method img").evaluate((image) => image.complete && image.naturalWidth > 0 && image.currentSrc.includes("peregrine-pdsa-method")) });
+  interactionChecks.push({ name: "Lido quotation is positioned under the three approach cards", passed: (await page.locator(".mental-map-main > .mental-map-quote").count()) === 1 });
   interactionChecks.push({ name: "Lido and Mitchell quotations are present", passed: await page.evaluate(() => document.body.innerText.includes("Peregrine has consistently demonstrated outstanding performance") && document.body.innerText.includes("Lido Ramadan") && document.body.innerText.includes("great testament to the Inadev team’s hard work helping IRS") && document.body.innerText.includes("Mitchell D. Winans")) });
+  interactionChecks.push({ name: "SEC growth narrative is present", passed: await page.evaluate(() => document.body.innerText.includes("SEC growth and prime performance") && document.body.innerText.includes("footprint across five divisions and offices") && document.body.innerText.includes("all-Exceptional CPARS")) });
+  const azureBox = await page.locator(".azure-visual").boundingBox();
+  interactionChecks.push({ name: "Azure delivery spine uses the compact aspect ratio", passed: Boolean(azureBox && azureBox.width / azureBox.height > (isMobile ? 1.2 : 3.5)) });
   interactionChecks.push({ name: "alternate Austin footer quotation is present", passed: await page.evaluate(() => document.body.innerText.includes("Peregrine has been top-notch in providing high-quality resources") && document.body.innerText.includes("fully recommend them to others")) });
   interactionChecks.push({ name: "DCAA appendix profile is complete", passed: await page.evaluate(() => document.body.innerText.toLowerCase().includes("our understanding of dcaa") && document.body.innerText.includes("$788.4B") && document.body.innerText.includes("$5.3B") && document.body.innerText.includes("$7.5:1") && document.body.innerText.includes("~9,000") && document.body.innerText.includes("~10,000") && document.body.innerText.includes("$633.0M") && document.querySelectorAll("#understanding .agency-technology-map article").length === 4 && document.querySelectorAll("#understanding .agency-sources a").length === 3) });
   if (isMobile) {
@@ -135,16 +141,6 @@ for (const width of widths) {
     interactionChecks.push({ name: "touch tooltip opens", passed: (await mobileTooltip.getAttribute("aria-expanded")) === "true" && await page.locator(".context-panel.open").first().isVisible() });
     await page.keyboard.press("Escape");
     interactionChecks.push({ name: "Escape closes touch tooltip", passed: (await mobileTooltip.getAttribute("aria-expanded")) === "false" });
-    const mobileFilterButtons = page.locator(".artifact-filter-toolbar button");
-    await mobileFilterButtons.nth(4).click();
-    interactionChecks.push({ name: "mobile artifact filter narrows results", passed: (await page.locator(".artifact-folio").count()) === 6 && (await mobileFilterButtons.nth(4).getAttribute("aria-pressed")) === "true" });
-    await mobileFilterButtons.nth(1).click();
-    interactionChecks.push({ name: "combined mobile filters show empty state", passed: await page.locator(".artifact-empty").isVisible() });
-    await page.locator(".artifact-empty button").click();
-    interactionChecks.push({ name: "mobile artifact reset restores index", passed: (await page.locator(".artifact-folio").count()) === 10 && (await mobileFilterButtons.first().getAttribute("aria-pressed")) === "true" });
-    await page.locator(".artifact-folio a").first().click();
-    await page.waitForTimeout(450);
-    interactionChecks.push({ name: "mobile past-performance link lands on exact target", passed: new URL(page.url()).hash === "#sec-evaluations" && await page.evaluate(() => document.activeElement?.id === "sec-evaluations") });
   } else {
     const interactions = [
       ["product selector", ".product-selector button", 1],
@@ -165,16 +161,6 @@ for (const width of widths) {
     interactionChecks.push({ name: "focus tooltip remains open", passed: (await desktopTooltip.getAttribute("aria-expanded")) === "true" });
     await page.keyboard.press("Escape");
     interactionChecks.push({ name: "Escape closes focused tooltip", passed: (await desktopTooltip.getAttribute("aria-expanded")) === "false" });
-    const desktopFilterButtons = page.locator(".artifact-filter-toolbar button");
-    await desktopFilterButtons.nth(3).click();
-    interactionChecks.push({ name: "desktop artifact filter narrows results", passed: (await page.locator(".artifact-folio").count()) === 7 && (await desktopFilterButtons.nth(3).getAttribute("aria-pressed")) === "true" });
-    await desktopFilterButtons.nth(4).click();
-    interactionChecks.push({ name: "combined desktop filters intersect results", passed: (await page.locator(".artifact-folio").count()) === 4 });
-    await page.locator(".artifact-result-status button").click();
-    interactionChecks.push({ name: "desktop artifact reset restores index", passed: (await page.locator(".artifact-folio").count()) === 10 && (await desktopFilterButtons.first().getAttribute("aria-pressed")) === "true" });
-    await page.locator(".artifact-folio a").first().click();
-    await page.waitForTimeout(450);
-    interactionChecks.push({ name: "desktop past-performance link lands on exact target", passed: new URL(page.url()).hash === "#sec-evaluations" && await page.evaluate(() => document.activeElement?.id === "sec-evaluations") });
   }
 
   const mobileTargetViolations = isMobile

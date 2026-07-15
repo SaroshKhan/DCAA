@@ -6,13 +6,13 @@ import {
   ArrowDown,
   ArrowRight,
   ArrowUpRight,
+  ChartNoAxesCombined,
   Check,
   ChevronDown,
   Cloud,
   Database,
   ExternalLink,
   FileCheck2,
-  Filter,
   Fingerprint,
   Info,
   Layers3,
@@ -29,7 +29,6 @@ import { useEffect, useId, useMemo, useRef, useState } from "react";
 import {
   artifactCategories,
   assets,
-  type ArtifactCategory,
   azureCases,
   capabilities,
   ceebitSteps,
@@ -133,7 +132,6 @@ export default function Home() {
   const [activeCapability, setActiveCapability] = useState<string>(capabilities[0].id);
   const [activeSec, setActiveSec] = useState<string>(secWorkstreams[0].id);
   const [activePerson, setActivePerson] = useState<string>(team[0].name);
-  const [artifactFilters, setArtifactFilters] = useState<ArtifactCategory[]>([]);
   const [announcement, setAnnouncement] = useState("");
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -149,12 +147,6 @@ export default function Home() {
   const selectedSec = secWorkstreams.find((workstream) => workstream.id === activeSec) ?? secWorkstreams[0];
   const selectedPerson = team.find((person) => person.name === activePerson) ?? team[0];
   const selectedMap = mentalMap.find((item) => item.id === activeMap) ?? mentalMap[0];
-  const filteredArtifacts = useMemo(
-    () => artifactFilters.length === 0
-      ? pastPerformanceArtifacts
-      : pastPerformanceArtifacts.filter((artifact) => artifactFilters.every((category) => artifact.categories.includes(category))),
-    [artifactFilters],
-  );
 
   useEffect(() => {
     const sections = navigation
@@ -212,22 +204,6 @@ export default function Home() {
   const selectState = (message: string, setter: (value: string) => void, value: string) => {
     setter(value);
     setAnnouncement(message);
-  };
-
-  const resetArtifactFilters = () => {
-    setArtifactFilters([]);
-    setAnnouncement(`${pastPerformanceArtifacts.length} past-performance records shown.`);
-  };
-
-  const toggleArtifactFilter = (category: ArtifactCategory) => {
-    const next = artifactFilters.includes(category)
-      ? artifactFilters.filter((item) => item !== category)
-      : [...artifactFilters, category];
-    const nextCount = next.length === 0
-      ? pastPerformanceArtifacts.length
-      : pastPerformanceArtifacts.filter((artifact) => next.every((item) => artifact.categories.includes(item))).length;
-    setArtifactFilters(next);
-    setAnnouncement(`${nextCount} past-performance record${nextCount === 1 ? "" : "s"} match the selected categories.`);
   };
 
   return (
@@ -343,7 +319,7 @@ export default function Home() {
                   <tr key={row.outcome}>
                     <td><span>{String(index + 1).padStart(2, "0")}</span><strong>{row.outcome}</strong></td>
                     <td>{row.response}</td>
-                    <td><div className="performance-with-context"><p>{row.pastPerformance}</p><ContextTooltip label={`${row.outcome} past performance`} context={evidenceContexts.matrix} /></div><a href={row.href}>View past performance <ArrowRight aria-hidden="true" /></a></td>
+                    <td><p>{row.pastPerformance}</p></td>
                   </tr>
                 ))}</tbody>
               </table>
@@ -354,8 +330,7 @@ export default function Home() {
                   <span className="matrix-card-number">{String(index + 1).padStart(2, "0")}</span>
                   <div><p>DCAA intended outcome</p><h3>{row.outcome}</h3></div>
                   <div><p>Peregrine capability and approach</p><span>{row.response}</span></div>
-                  <div><p>Relevant past performance <ContextTooltip label={`${row.outcome} past performance`} context={evidenceContexts.matrix} /></p><span>{row.pastPerformance}</span></div>
-                  <a href={row.href}>View past performance <ArrowRight aria-hidden="true" /></a>
+                  <div><p>Relevant past performance</p><span>{row.pastPerformance}</span></div>
                 </article>
               ))}
             </div>
@@ -366,43 +341,22 @@ export default function Home() {
                 <p>{pdsaMethod.body}</p>
                 <div className="pdsa-stages">{pdsaMethod.stages.map((stage) => <div key={stage.id}><span>{stage.id}</span><strong>{stage.title}</strong><p>{stage.body}</p></div>)}</div>
               </div>
-              <figure><img src={assets.pdsa} alt="Peregrine Design, Systems, and Agile method moving from problem identification through experimentation to iterative implementation" /><figcaption>{pdsaMethod.source}</figcaption></figure>
+              <figure><img src={assets.pdsa} alt="Peregrine Design, Systems, and Agile method moving from problem identification through experimentation to iterative implementation" /></figure>
             </section>
             <section className="artifact-browser" aria-labelledby="artifact-browser-title">
               <div className="artifact-browser-heading">
-                <div><span><Filter aria-hidden="true" /> Past performance filter</span><h3 id="artifact-browser-title">Explore mission-driven work at clients with needs similar to DCAA</h3></div>
-                <p>Use the categories below to review relevant client engagements, delivery records, evaluations, governance work, leadership observations, and acquisition qualifications. Select more than one category to narrow the results.</p>
+                <div><span><ChartNoAxesCombined aria-hidden="true" /> Past performance</span><h3 id="artifact-browser-title">Explore mission-driven work at clients with needs similar to DCAA</h3></div>
               </div>
-              <div className="artifact-filter-toolbar" role="group" aria-label="Filter past performance by category">
-                <button type="button" aria-pressed={artifactFilters.length === 0} className={artifactFilters.length === 0 ? "active" : ""} onClick={resetArtifactFilters}>
-                  <span>All past performance</span><strong>{pastPerformanceArtifacts.length}</strong>
-                </button>
-                {artifactCategories.map((category) => {
-                  const count = pastPerformanceArtifacts.filter((artifact) => artifact.categories.includes(category.id)).length;
-                  const selected = artifactFilters.includes(category.id);
-                  return <button key={category.id} type="button" aria-pressed={selected} className={selected ? "active" : ""} onClick={() => toggleArtifactFilter(category.id)}><span>{category.label}</span><strong>{count}</strong></button>;
-                })}
+              <div className="artifact-grid">
+                {pastPerformanceArtifacts.map((artifact) => (
+                  <article key={artifact.id} className="artifact-folio">
+                    <header><p>{artifact.source}</p></header>
+                    <h4>{artifact.title}</h4>
+                    <p>{artifact.summary}</p>
+                    <div>{artifact.categories.map((category) => <span key={category}>{artifactCategories.find((item) => item.id === category)?.label}</span>)}</div>
+                  </article>
+                ))}
               </div>
-              <div className="artifact-result-status" aria-live="polite">
-                <span>{String(filteredArtifacts.length).padStart(2, "0")}</span>
-                <p>{artifactFilters.length === 0 ? "Past-performance records in the complete index" : `Past-performance records matching ${artifactFilters.length} selected categor${artifactFilters.length === 1 ? "y" : "ies"}`}</p>
-                {artifactFilters.length > 0 && <button type="button" onClick={resetArtifactFilters}>Reset filters</button>}
-              </div>
-              {filteredArtifacts.length > 0 ? (
-                <div className="artifact-grid">
-                  {filteredArtifacts.map((artifact) => (
-                    <article key={artifact.id} className="artifact-folio">
-                      <header><span>{artifact.index}</span><p>{artifact.source}</p></header>
-                      <h4>{artifact.title}</h4>
-                      <p>{artifact.summary}</p>
-                      <div>{artifact.categories.map((category) => <span key={category}>{artifactCategories.find((item) => item.id === category)?.label}</span>)}</div>
-                      <a href={artifact.href} onClick={(event) => { event.preventDefault(); navigate(artifact.href.slice(1)); setAnnouncement(`${artifact.title} past performance opened.`); }}>Go to past performance <ArrowRight aria-hidden="true" /></a>
-                    </article>
-                  ))}
-                </div>
-              ) : (
-                <div className="artifact-empty" role="status"><Filter aria-hidden="true" /><h4>No past-performance record matches every selected category</h4><p>Remove one category or reset the complete index.</p><button type="button" onClick={resetArtifactFilters}>Show all past performance</button></div>
-              )}
             </section>
           </div>
         </section>
@@ -411,12 +365,15 @@ export default function Home() {
           <div className="page-frame">
             <SectionHeader index="02" eyebrow="DCAA background and approach" title="Use the data. Extract the intelligence. Enable delivery." intro="Three connected actions organize DCAA's data, analytical, and delivery requirements." />
             <div className="mental-map-layout">
-              <div className="mental-map-controls" role="group" aria-label="Three-part mental map">
-                {mentalMap.map((item) => (
-                  <button key={item.id} type="button" className={activeMap === item.id ? "active" : ""} aria-pressed={activeMap === item.id} onClick={() => selectState(`${item.title} selected`, setActiveMap, item.id)}>
-                    <span>{item.number}</span><small>{item.label}</small><strong>{item.title}</strong><p>{item.body}</p><p className="mental-map-detail">{item.detail}</p>
-                  </button>
-                ))}
+              <div className="mental-map-main">
+                <div className="mental-map-controls" role="group" aria-label="Three-part mental map">
+                  {mentalMap.map((item) => (
+                    <button key={item.id} type="button" className={activeMap === item.id ? "active" : ""} aria-pressed={activeMap === item.id} onClick={() => selectState(`${item.title} selected`, setActiveMap, item.id)}>
+                      <span>{item.number}</span><small>{item.label}</small><strong>{item.title}</strong><p>{item.body}</p><p className="mental-map-detail">{item.detail}</p>
+                    </button>
+                  ))}
+                </div>
+                <div className="mental-map-quote"><EvidenceQuote {...lidoQuotation} /></div>
               </div>
               <aside className="alignment-rail" aria-live="polite">
                 <p className="eyebrow">Connection to DCAA requirements</p>
@@ -432,7 +389,6 @@ export default function Home() {
                 <p className="hub-context">DCAA's transition to 23 hub locations increases the value of consistent enterprise data, reusable analytical services, and role-relevant access across distributed operations.</p>
               </aside>
             </div>
-            <div className="mental-map-quote"><EvidenceQuote {...lidoQuotation} /></div>
           </div>
         </section>
 
@@ -638,7 +594,7 @@ export default function Home() {
               </div>
               <article className="person-detail" aria-live="polite">
                 <div className="person-detail-head"><div className="person-monogram" aria-hidden="true">{selectedPerson.initials}</div><div><p className="eyebrow">{selectedPerson.role}</p><h3>{selectedPerson.name}</h3><span>{selectedPerson.companyTitle}</span></div></div><p className="person-profile">{selectedPerson.profile}</p>
-                <blockquote className="person-focus"><span>DCAA focus</span><p>{selectedPerson.focus}</p></blockquote>
+                <blockquote className="person-quote"><Quote aria-hidden="true" /><span>Quotation from {selectedPerson.name}</span><p>“{selectedPerson.quote}”</p></blockquote>
                 <dl><div><dt>Solution contribution</dt><dd>{selectedPerson.contribution}</dd></div><div><dt>Capability coverage</dt><dd>{selectedPerson.coverage}</dd></div><div><dt>Relevant background</dt><dd>{selectedPerson.pastPerformance}</dd></div><div className="education-box"><dt>Education</dt><dd>{selectedPerson.education}</dd></div></dl>
               </article>
             </div>
