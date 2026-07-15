@@ -26,4 +26,6 @@ Expanded the complete experience for desktop, iPad, and phone layouts. Reduced h
 
 Prepared and validated an independent static package for `peregrineadvisors.com/dcaadatalake`, with localized image assets, subpath-aware Vite and prerender configuration, the complete production bundle, and IT deployment instructions.
 
+Published the complete source, localized assets, production build, QA records, and deployment guide to the public `SaroshKhan/DCAA` repository on the `main` branch.
+
 Added the exact user-approved Ahmed Aboulnaga quotation beside Pooja Sangwan in the PCAOB Azure experience block. Public research confirmed PCAOB association but did not establish an authoritative current title, so the public attribution uses **Ahmed Aboulnaga, PCAOB** without an inferred title.
